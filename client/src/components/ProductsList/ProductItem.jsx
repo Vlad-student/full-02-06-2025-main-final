@@ -28,7 +28,7 @@ const ProductItem = (props) => {
       </div>
       <h3>{title}</h3>
       <p>{price} uah</p>
-      <p className={styles.category}>{category?.name}</p>
+      {/* <p className={styles.category}>{category?.name}</p> */}
       <p>{stockQty > 0 ? 'Available' : 'Not Available'}</p>
       <Icon className={styles.cart} path={mdiPurseOutline} size={1} onClick={handleAddToCart} />
     </article>

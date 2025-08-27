@@ -1,0 +1,63 @@
+$mobile-breakpoint: 599px;
+$tablet-min: 600px;
+$tablet-max: 1023px;
+$desktop-min: 1024px;
+
+.productsGrid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.productCard {
+  width: 100%;
+  max-width: 400px;
+}
+
+@media screen and (min-width: $tablet-min) and (max-width: $tablet-max) {
+  .productsGrid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .productCard {
+    width: calc(50% - 10px);
+  }
+}
+
+@media (min-width: $desktop-min) {
+  .productsGrid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .productCard {
+    width: calc(25% - 15px); // 4 колонки
+  }
+}
+
+// @media screen and (min-width: $breakpoint-tablet) {
+//   .productsGrid {
+//     display: grid;
+//     grid-template-columns: repeat(2, 1fr);
+//     gap: 15px;
+//   }
+// }
+
+// @media screen and (min-width: $breakpoint-desktop) {
+//   .productsGrid {
+//     grid-template-columns: repeat(4, 1fr);
+//     gap: 20px;
+//   }
+// }
+
+// @media screen and (max-width: $breakpoint-mobile) {
+//   .productsGrid {
+//     display: flex;
+//     flex-direction: column;
+//     width: 100%;
+//     align-items: center;
+//     gap: 10px;
+//   }
+// }

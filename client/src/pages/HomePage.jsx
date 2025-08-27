@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllProductsThunk } from '../store/productsSlice';
-import ProductsList from '../components/ProductsList/ProductsList';
-import styles from './Pages.module.scss';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProductsThunk } from "../store/productsSlice";
+import ProductsList from "../components/ProductsList/ProductsList";
+import styles from "./Pages.module.scss";
+
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const HomePage = () => {
     <section className={styles.wrapper}>
       {error && <p>{error}</p>}
       {isLoading && <p>Loadin...</p>}
-      <ProductsList products={products}/>
+      <ProductsList products={products} />
     </section>
   );
 };
