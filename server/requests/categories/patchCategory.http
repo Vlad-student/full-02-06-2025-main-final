@@ -1,0 +1,7 @@
+PATCH http://localhost:3000/categories/6849a1f5f5dc1734598a1d08 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NDA1ZDRhYzU2Y2NiODg5OGViZDJmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0OTIyNTYxNCwiZXhwIjoxNzQ5ODMwNDE0fQ.OW7bG8MLhqbLab2NV5VdUQioB29gOsrrK5Z7VUhcrQk
+
+{
+  "name": "Technic"
+}

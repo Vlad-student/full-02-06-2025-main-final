@@ -1,0 +1,65 @@
+@use '/src/common/styles/colors' as *;
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.product {
+  width: 250px;
+  padding: 16px;
+  border: 1px solid $grey100;
+  position: relative;
+  border-radius: 8px;
+  @media screen and (min-width: 960px) {
+    width: 312px;
+    padding: 16px;
+  }
+  * {
+    margin: 0;
+  }
+  &:hover {
+    border: 1px solid $primary;
+  }
+  h3 {
+    color: $primary;
+  }
+  .pic {
+    width: 200px;
+    height: 200px;
+    @media screen and (min-width: 960px) {
+      width: 280px;
+      height: 280px;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  .sale,
+  .cart,
+  .category {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+  }
+
+  .category {
+    top: 20px;
+    left: 20px;
+  }
+
+  .sale {
+    color: $primary;
+  }
+
+  .cart {
+    bottom: 20px;
+    &:hover {
+      color: $primary;
+    }
+  }
+}

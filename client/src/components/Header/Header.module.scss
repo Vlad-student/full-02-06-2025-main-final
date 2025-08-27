@@ -1,0 +1,71 @@
+@use '/src/common/styles/colors' as *;
+.wrapper {
+  min-width: 560px;
+  max-width: 1300px;
+  width: 95%;
+  margin: auto;
+}
+a {
+  padding: 0.5em;
+}
+
+.active {
+  background-color: $primary;
+  color: $white;
+}
+
+.cart {
+  position: relative;
+  display: flex;
+  &:hover {
+    color: $primary;
+    .badge {
+      background-color: $primary;
+    }
+  }
+  .badge {
+    position: absolute;
+    left: 30px;
+    top: 6px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: $succeess-dark;
+    color: white;
+    text-align: center;
+    line-height: 26px;
+  }
+  .cart-info {
+    padding-left: 0.5em;
+    font-size: 12px;
+  }
+  .price {
+    font-size: 20px;
+  }
+}
+
+.top-header,
+.middle-header {
+  display: flex;
+  gap: 10px;
+  padding: 0.5em;
+  align-items: center;
+}
+.top-header {
+  justify-content: flex-end;
+  font-size: 12px;
+}
+.middle-header {
+  justify-content: space-between;
+}
+
+.main-menu {
+  display: flex;
+  gap: 10px;
+  padding: 0.5em;
+}
+
+a:hover {
+  color: $primary;
+}

@@ -1,0 +1,2 @@
+GET http://localhost:3000/users/account HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NDA2NGFlYzU2Y2NiODg5OGViZDMwMyIsInJvbGUiOiJjdXN0b21lciIsImlhdCI6MTc0OTIyMTcwMywiZXhwIjoxNzQ5ODI2NTAzfQ.ZoVu0j-k0jkRg9LH1WAMbkC2rbgjubeePLsuVgnVjrQ

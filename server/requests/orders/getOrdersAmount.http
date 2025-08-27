@@ -1,0 +1,2 @@
+GET http://localhost:3000/orders/countAllOrders HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NDA1ZDRhYzU2Y2NiODg5OGViZDJmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NTUyNjM4NCwiZXhwIjoxNzU2MTMxMTg0fQ.VYibFGS1wB2Cvl9jCHbJV2y0Y7i94oUp7xiMC97Shbg

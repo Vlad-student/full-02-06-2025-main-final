@@ -1,0 +1,12 @@
+h4 {
+  margin-bottom: 0;
+}
+
+.flex {
+  display: flex;
+  gap: 20px;
+
+  div {
+    flex: 1;
+  }
+}

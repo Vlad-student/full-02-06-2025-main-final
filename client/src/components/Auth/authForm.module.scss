@@ -1,0 +1,28 @@
+@use '/src/common/styles/colors' as *;
+
+.form {
+  width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: auto;
+  margin-top: 36px;
+  padding: 24px;
+  box-shadow: 0px 0px 5px #ccc;
+
+  input {
+    padding: 14px 16px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+  }
+}
+
+.btn-submit {
+  background-color: $primary;
+  color: $white;
+  padding: 14px 16px;
+  border-radius: 43px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+}

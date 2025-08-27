@@ -1,0 +1,9 @@
+PATCH http://localhost:3000/products/685028e842680a04197d9a0a HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NDA1ZDRhYzU2Y2NiODg5OGViZDJmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDA4Mzc0OCwiZXhwIjoxNzUwNjg4NTQ4fQ.mE8hR3kLKoL2gPERAsVXCXGVoaxceltcUGattoekkQk
+
+{
+  "title": "Laptop Asus 4512",
+  "price": 45000,
+  "category": "6849a1f5f5dc1734598a1d08"
+}
