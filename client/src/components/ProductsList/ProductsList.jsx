@@ -4,6 +4,7 @@ import styles from "./ProductsList.module.scss";
 
 const ProductsList = (props) => {
   const { products } = props;
+  
   const showProduct = (product) => (
     <ProductItem
       key={product._id}

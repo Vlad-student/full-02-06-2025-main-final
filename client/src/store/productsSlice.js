@@ -24,7 +24,7 @@ export const getAllProductsThunk = createAsyncThunk(
   'products/getAllProductsThunk',
   async (values, thunkAPI) => {
     try {
-      const response = await getAllProducts();
+      const response = await getAllProducts(values);
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error?.message);
