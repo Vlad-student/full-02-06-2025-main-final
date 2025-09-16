@@ -7,7 +7,7 @@ const CONSTANTS = {
   ORDER_AMOUNT: [2,5,10,15],
   // Stripe TEST keys — for demo purposes only
   STRIPE_SECRET_KEY:
-    'pk_test_51RrKlARL1VqIp3S3HkswWhggVpWVkbiUdkBxbQURxCt8Iwx8r8JO7mBEeMHviV0kejBXm6dN4FfHSHmQS3hYPIm700i8EpCPGW',
+    'pk_test_51RsNQxEwAJ4b9QpfkpEI0vYjGupfeN2xPtyr56zMxu5I4yQgv36ppp6yDynPXZz3GQjpv1Wsh64rPSHJQN3uCIdT001nIwOTrb',
 
 };
 

@@ -14,7 +14,7 @@ const CONSTANTS = {
   ORDER_STATUS: ['new', 'paid', 'confirm', 'shipped', 'delivered', 'canceled'],
   // Stripe TEST keys — for demo purposes only
   STRIPE_SECRET_KEY:
-    'sk_test_51RrKlARL1VqIp3S35bvczI25FNtZTfUayn7QdIMHM26Z2oN1BMvG3LforCPgDQau3kQ3Nv8VYRvNUwWyxfHlF0Xc00LQkF27to',
+   "sk_test_51RsNQxEwAJ4b9QpfQymFrMAhW0tSud88sQ0G69NZz7iNr7xpOcYwqMi47EntIgLNVPxp4RLuguVy069bEWzJacmy008zl61prl",
   CLIENT_URL: 'http://localhost:5173',
 };
 
