@@ -22,15 +22,10 @@ export const getOneProductThunk = createAsyncThunk(
 );
 
 export const getAllProductsThunk = createAsyncThunk(
-  "products/getAllProductsThunk",
-  async (queryParams = {}, thunkAPI) => {
+  'products/getAllProductsThunk',
+  async (values, thunkAPI) => {
     try {
-      const queryString = new URLSearchParams(queryParams).toString();
-
-      const url = `http://localhost:5173/products?${queryString}`;
-
-      const response = await axios.get(url);
-      
+      const response = await getAllProducts();
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error?.message);

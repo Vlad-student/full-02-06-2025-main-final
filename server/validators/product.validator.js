@@ -22,3 +22,5 @@ module.exports.updateProductSchema = Yup.object({
   category: Yup.string(),
   isSale: Yup.boolean(),
 });
+
+

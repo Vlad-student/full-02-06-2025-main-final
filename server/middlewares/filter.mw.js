@@ -1,35 +1,30 @@
 module.exports.filterProducts = async (req, res, next) => {
   try {
-    const { price_from, price_to, in_stock, category, on_sale } = req.query;
+    const { minPrice, maxPrice, availability, category, sale } = req.query;
     req.filter = {};
-
-    if (price_from &&  !isNaN(Number(price_from)) || price_to && !isNaN(Number(price_to))) {
+    if (minPrice || maxPrice) {
       req.filter.price = {};
-      if (price_from &&  !isNaN(Number(price_from))) {
-        req.filter.price.$gte = Number(price_from);
+      if (minPrice) {
+        req.filter.price.$gte = Number(minPrice);
       }
-      if (price_to && !isNaN(Number(price_to))) {
-        req.filter.price.$lte = Number(price_to);
+      if (maxPrice) {
+        req.filter.price.$lt = Number(maxPrice);
       }
     }
-
-    if (in_stock) {
+    if (availability) {
       req.filter.stockQty = {};
-      if (in_stock === "true") {
+      if (availability === 'true') {
         req.filter.stockQty.$gte = 1;
       } else {
         req.filter.stockQty.$eq = 0;
       }
     }
-
     if (category) {
       req.filter.category = category;
     }
-
-    if (on_sale === true) {
-      req.filter.isSale = on_sale === "true";
+    if (sale) {
+      req.filter.isSale = sale === 'true';
     }
-
     next();
   } catch (error) {
     next(error);
