@@ -51,6 +51,11 @@ export const getAllProducts = (options) => {
   return apiClient.get(`/products?${query}`);
 };
 export const getOneProduct = (id) => apiClient.get(`/products/${id}`);
+
+export const getProductsOnSale = () => {
+  return apiClient.get("/products/sale");
+};
+
 export const createProduct = (values) => apiClient.post("/products", values);
 export const updateProduct = (id, values) =>
   apiClient.patch(`/products/${id}`, values);

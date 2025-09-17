@@ -5,9 +5,9 @@ import {
   updateProduct,
   deleteProduct,
   getOneProduct,
+  getProductsOnSale,
 } from "../api";
 import { pendingCase, rejectedCase } from "./functions";
-import axios from "axios";
 
 export const getOneProductThunk = createAsyncThunk(
   "products/getOneProductThunk",
@@ -21,8 +21,20 @@ export const getOneProductThunk = createAsyncThunk(
   }
 );
 
+export const getAllProductsOnSaleThunk = createAsyncThunk(
+  "products/getAllProductsOnSaleThunk",
+  async (_, thunkAPI) => {
+    try {
+      const response = await getProductsOnSale();
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error?.message);
+    }
+  }
+);
+
 export const getAllProductsThunk = createAsyncThunk(
-  'products/getAllProductsThunk',
+  "products/getAllProductsThunk",
   async (values, thunkAPI) => {
     try {
       const response = await getAllProducts();
@@ -73,12 +85,28 @@ const productsSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
+    saleProducts: [],
     error: null,
     isLoading: false,
     selectedProduct: null,
   },
+
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getAllProductsOnSaleThunk.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(getAllProductsOnSaleThunk.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(getAllProductsOnSaleThunk.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.saleProducts = action.payload;
+    });
+
     builder.addCase(getOneProductThunk.pending, pendingCase);
     builder.addCase(getOneProductThunk.rejected, rejectedCase);
     builder.addCase(getOneProductThunk.fulfilled, (state, action) => {
