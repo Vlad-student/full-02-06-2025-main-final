@@ -1,2 +1,2 @@
-GET http://localhost:3000/users HTTP/1.1
+GET http://localhost:3000/admin/stats HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NDA1ZGFhMWIzMTRjZmQ2MDNmNTNkMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1ODI2NjkyNSwiZXhwIjoxNzU4ODcxNzI1fQ.-A0ppgijLmGmvlu-BocOlEtG5AR3DEiLihfZuqi5fDw

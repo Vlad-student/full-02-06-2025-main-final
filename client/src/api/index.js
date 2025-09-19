@@ -56,6 +56,10 @@ export const getProductsOnSale = () => {
   return apiClient.get("/products/sale");
 };
 
+export const getAdminStats = () => {
+  return apiClient.get("/admin/stats");
+};
+
 export const createProduct = (values) => apiClient.post("/products", values);
 export const updateProduct = (id, values) =>
   apiClient.patch(`/products/${id}`, values);

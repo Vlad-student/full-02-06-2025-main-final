@@ -1,9 +1,15 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { registerUser, loginUser, getAccount, updateUser } from '../api';
-import { pendingCase, rejectedCase } from './functions';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  registerUser,
+  loginUser,
+  getAccount,
+  updateUser,
+  getAdminStats,
+} from "../api";
+import { pendingCase, rejectedCase } from "./functions";
 
 export const updateUserThunk = createAsyncThunk(
-  'auth/updateUserThunk',
+  "auth/updateUserThunk",
   async ({ id, values }, thunkAPI) => {
     try {
       const response = await updateUser(id, values);
@@ -14,8 +20,20 @@ export const updateUserThunk = createAsyncThunk(
   }
 );
 
+export const getAdminStatsThunk = createAsyncThunk(
+  "admin/getAdminStatsThunk",
+  async (_, thunkAPI) => {
+    try {
+      const response = await getAdminStats();
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const registerUserThunk = createAsyncThunk(
-  'auth/registerUserThunk',
+  "auth/registerUserThunk",
   async (values, thunkAPI) => {
     try {
       const response = await registerUser(values);
@@ -27,11 +45,11 @@ export const registerUserThunk = createAsyncThunk(
 );
 
 export const loginUserThunk = createAsyncThunk(
-  'auth/loginUserThunk',
+  "auth/loginUserThunk",
   async (values, thunkAPI) => {
     try {
       const response = await loginUser(values);
-      localStorage.setItem('token', response.data.data.token);
+      localStorage.setItem("token", response.data.data.token);
       return response.data.data.user;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -40,12 +58,12 @@ export const loginUserThunk = createAsyncThunk(
 );
 
 export const getAccountThunk = createAsyncThunk(
-  'auth/getAccountThunk',
+  "auth/getAccountThunk",
   async (_, thunkAPI) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) {
-        return thunkAPI.rejectWithValue('No token');
+        return thunkAPI.rejectWithValue("No token");
       }
       const response = await getAccount();
       return response.data.data;
@@ -56,9 +74,9 @@ export const getAccountThunk = createAsyncThunk(
 );
 
 export const logoutUserThunk = createAsyncThunk(
-  'auth/logoutUserThunk',
+  "auth/logoutUserThunk",
   async () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
   }
 );
 
@@ -69,11 +87,12 @@ const fulfilledCase = (state, action) => {
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
     user: null,
     error: null,
     isLoading: false,
+    stats: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -96,6 +115,21 @@ const authSlice = createSlice({
     builder.addCase(registerUserThunk.fulfilled, fulfilledCase);
     builder.addCase(loginUserThunk.fulfilled, fulfilledCase);
     builder.addCase(getAccountThunk.fulfilled, fulfilledCase);
+
+    builder.addCase(getAdminStatsThunk.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(getAdminStatsThunk.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.stats = action.payload;
+    });
+    builder.addCase(getAdminStatsThunk.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.stats = action.payload;
+    });
   },
 });
 
