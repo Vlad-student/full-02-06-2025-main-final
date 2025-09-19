@@ -18,6 +18,7 @@ import ProductPage from "./pages/ProductPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProfilePage from "./pages/ProfilePage";
 import SalePage from "./pages/SalePage";
+import AdminStatsPage from "./components/Admin/AdminStatsPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -80,6 +81,17 @@ const App = () => {
               path="/admin-panel/orders"
               element={
                 user?.role === "admin" ? <AdminOrders /> : <Navigate to="/" />
+              }
+            />
+
+            <Route
+              path="/admin-panel/stats"
+              element={
+                user?.role === "admin" ? (
+                  <AdminStatsPage />
+                ) : (
+                  <Navigate to="/" />
+                )
               }
             />
           </Route>
