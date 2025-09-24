@@ -13,6 +13,7 @@ const {
   updateProduct,
   deleteProduct,
   getProductsOnSale,
+  searchProducts,
 } = require("../controllers/product.controller");
 const CONSTANTS = require("../constants");
 const { paginate } = require("../middlewares/pagination.mw");
@@ -21,6 +22,8 @@ const { filterProducts } = require("../middlewares/filter.mw");
 const router = express.Router();
 
 router.get("/sale", getProductsOnSale);
+
+router.get("/search", searchProducts);
 
 router.post(
   "/",
@@ -44,5 +47,7 @@ router.patch(
 );
 
 router.delete("/:idProduct", auth, isAdmin, deleteProduct);
+
+
 
 module.exports = router;

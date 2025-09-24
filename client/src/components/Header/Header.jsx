@@ -8,6 +8,7 @@ import { logoutUserThunk } from "../../store/authSlice";
 import styles from "./Header.module.scss";
 import { resetOrders } from "../../store/ordersSlice";
 import SalePage from "../../pages/SalePage";
+import SearchBar from "../SearchBar/SearchBar";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -103,6 +104,9 @@ const Header = () => {
             {categories?.map(showCategory)}
             <li>
               <NavLink to="/products/sale"> Sale </NavLink>
+            </li>
+            <li>
+              <SearchBar />
             </li>
           </ul>
         </nav>

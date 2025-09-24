@@ -27,7 +27,7 @@ module.exports.getStats = async (req, res, next) => {
 //     const users = await User.find();
 //     const orders = await Order.find();
 //     const products = await Product.find();
-//     res.status(200).send({ data: users, orders, products });
+//     res.status(200).send({ data: {users, orders, products} });
 //   } catch (error) {
 //     next(error);
 //   }

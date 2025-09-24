@@ -20,11 +20,11 @@ const AdminStatsPage = () => {
   }
   return (
     <div className={styles.statsTable}>
-      <h2>Detailed Statistics</h2>
+      <h2>Statistic</h2>
       <table>
         <thead>
           <tr>
-            <th>Metric</th>
+            <th>Information</th>
             <th>Count</th>
           </tr>
         </thead>

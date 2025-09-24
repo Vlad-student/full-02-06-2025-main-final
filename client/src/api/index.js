@@ -64,3 +64,12 @@ export const createProduct = (values) => apiClient.post("/products", values);
 export const updateProduct = (id, values) =>
   apiClient.patch(`/products/${id}`, values);
 export const deleteProduct = (id) => apiClient.delete(`/products/${id}`);
+
+export const getSearchProducts = (options) => {
+  const query = queryString.stringify(options);
+  return apiClient.get(`products/search?${query}`);
+};
+
+// export const searchProduct = (query) => {
+//   return apiClient.get(`/products/search?q=${encodeURIComponent(query)}`);
+// };

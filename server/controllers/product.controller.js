@@ -124,3 +124,16 @@ module.exports.getProductsOnSale = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.searchProducts = async (req, res, next) => {
+  try {
+    const q = req.query.q || "";
+    const products = await Product.find({
+      title: { $regex: q, $options: "i" },
+    });
+
+    res.json(products);
+  } catch (error) {
+    next(error);
+  }
+};
