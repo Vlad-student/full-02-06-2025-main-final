@@ -1,3 +1,6 @@
+const Product = require("../models/Product");
+const Category = require("../models/Category");
+
 module.exports.filterProducts = async (req, res, next) => {
   try {
     const { minPrice, maxPrice, availability, category, sale } = req.query;
@@ -13,7 +16,7 @@ module.exports.filterProducts = async (req, res, next) => {
     }
     if (availability) {
       req.filter.stockQty = {};
-      if (availability === 'true') {
+      if (availability === "true") {
         req.filter.stockQty.$gte = 1;
       } else {
         req.filter.stockQty.$eq = 0;
@@ -23,7 +26,7 @@ module.exports.filterProducts = async (req, res, next) => {
       req.filter.category = category;
     }
     if (sale) {
-      req.filter.isSale = sale === 'true';
+      req.filter.isSale = sale === "true";
     }
     next();
   } catch (error) {
@@ -49,3 +52,60 @@ module.exports.filterOrders = async (req, res, next) => {
     next(error);
   }
 };
+
+
+// module.exports.getFilterProducts = async (req, res, next) => {
+//   try {
+//     const {
+//       page = 1,
+//       limit = 12,
+//       minPrice,
+//       maxPrice,
+//       category,
+//       stockQty,
+//       isSale,
+//     } = req.query;
+
+//     const filter = {};
+
+//     if (minPrice || maxPrice) {
+//       filter.price = {};
+//       if (minPrice) filter.price.$gte = Number(minPrice);
+//       if (maxPrice) filter.price.$lte = Number(maxPrice);
+//     }
+
+//     if (category) {
+//       filter.category = category;
+//     }
+
+//     if (stockQty === true) {
+//       filter.stockQty = { $gt: 0 };
+//     }
+
+//     if (isSale === true) {
+//       filter.isSale = true;
+//     }
+
+//     const [products] = await Promise.all([
+//       Product.find(filter),
+//       Product.countDocuments(filter),
+//     ]);
+
+//     res.status(200).send({
+//       data: products,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+// module.exports.getCategories = async (req, res, next) => {
+//   try {
+//     const categories = await Category.find();
+//     res.status(200).send({
+//       data: categories,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };

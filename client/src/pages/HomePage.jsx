@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProductsThunk } from "../store/productsSlice";
 import ProductsList from "../components/ProductsList/ProductsList";
 import styles from "./Pages.module.scss";
-// import { useState } from "react";
-// import FiltersPanel from "../components/Filter/FilterPanel";
+import FiltersSideBar from "../components/Filters/FiltersSideBar";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -14,9 +13,17 @@ const HomePage = () => {
   }, [dispatch]);
   return (
     <section className={styles.wrapper}>
-      {error && <p>{error}</p>}
-      {isLoading && <p>Loadin...</p>}
-      <ProductsList products={products}/>
+      <div className={styles.container}>
+        <aside className={styles.sidebar}>
+          <FiltersSideBar />
+        </aside>
+
+        <main>
+          {error && <p>{error}</p>}
+          {isLoading && <p>Loadin...</p>}
+          <ProductsList products={products} />
+        </main>
+      </div>
     </section>
   );
 };

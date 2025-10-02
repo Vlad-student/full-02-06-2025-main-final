@@ -14,12 +14,17 @@ const {
   deleteProduct,
   getProductsOnSale,
   searchProducts,
+  getFilteredProducts,
+  getCategoriesForFilter,
 } = require("../controllers/product.controller");
 const CONSTANTS = require("../constants");
 const { paginate } = require("../middlewares/pagination.mw");
 const { filterProducts } = require("../middlewares/filter.mw");
 
 const router = express.Router();
+
+router.get("/filtered", paginate, filterProducts, getFilteredProducts);
+router.get("/filter/categories", getCategoriesForFilter);
 
 router.get("/sale", getProductsOnSale);
 
@@ -47,7 +52,5 @@ router.patch(
 );
 
 router.delete("/:idProduct", auth, isAdmin, deleteProduct);
-
-
 
 module.exports = router;

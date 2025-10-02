@@ -102,24 +102,22 @@ const authSlice = createSlice({
     });
 
     builder.addCase(updateUserThunk.pending, pendingCase);
-    builder.addCase(registerUserThunk.pending, pendingCase);
-    builder.addCase(loginUserThunk.pending, pendingCase);
-    builder.addCase(getAccountThunk.pending, pendingCase);
-
+    builder.addCase(updateUserThunk.fulfilled, fulfilledCase);
     builder.addCase(updateUserThunk.rejected, rejectedCase);
+
+    builder.addCase(registerUserThunk.pending, pendingCase);
+    builder.addCase(registerUserThunk.fulfilled, fulfilledCase);
     builder.addCase(registerUserThunk.rejected, rejectedCase);
+
+    builder.addCase(loginUserThunk.pending, pendingCase);
+    builder.addCase(loginUserThunk.fulfilled, fulfilledCase);
     builder.addCase(loginUserThunk.rejected, rejectedCase);
+
+    builder.addCase(getAccountThunk.pending, pendingCase);
+    builder.addCase(getAccountThunk.fulfilled, fulfilledCase);
     builder.addCase(getAccountThunk.rejected, rejectedCase);
 
-    builder.addCase(updateUserThunk.fulfilled, fulfilledCase);
-    builder.addCase(registerUserThunk.fulfilled, fulfilledCase);
-    builder.addCase(loginUserThunk.fulfilled, fulfilledCase);
-    builder.addCase(getAccountThunk.fulfilled, fulfilledCase);
-
-    builder.addCase(getAdminStatsThunk.pending, (state) => {
-      state.isLoading = true;
-      state.error = null;
-    });
+    builder.addCase(getAdminStatsThunk.pending, pendingCase);
     builder.addCase(getAdminStatsThunk.fulfilled, (state, action) => {
       state.isLoading = false;
       state.error = null;

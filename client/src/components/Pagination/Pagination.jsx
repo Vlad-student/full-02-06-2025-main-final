@@ -1,5 +1,5 @@
-import React from 'react';
-import CONSTANTS from '../../constants';
+import React from "react";
+import CONSTANTS from "../../constants";
 
 const Pagination = (props) => {
   const { page, setPage, total, amount, setAmount } = props;

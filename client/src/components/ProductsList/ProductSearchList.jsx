@@ -1,34 +1,33 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
-import Product from "../components/Product/Product";
-import { searchProductThunk } from "../../store/productsSlice";
+import { searchProductThunk } from "../../store/searchSlice";
+import ProductsList from "./ProductsList";
+import { useSearchParams } from "react-router-dom";
+import ProductItem from "./ProductItem";
 
-const ProductsSearchList = (props) => {
-  const { q } = props;
+const ProductSearchList = () => {
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("q");
   const dispatch = useDispatch();
-  const { products, isLoading, error } = useSelector((state) => state.products);
+  const { products, isLoading, error, searchQuery } = useSelector(
+    (state) => state.search
+  );
 
   useEffect(() => {
-    if (q) {
-      dispatch(searchProductThunk({ q }));
-    }
-  }, [dispatch, q]);
+    dispatch(searchProductThunk(query));
+  }, [dispatch, query]);
 
-  const showProduct = (product) => (
-    <Product key={product.id} product={product} />
+  if (!searchQuery) {
+    return <div>Введіть запит для пошуку</div>;
+  }
+
+  return (
+    <div>
+      {error && <p>{error}</p>}
+      {isLoading && <p>Loading...</p>}
+      <ProductItem key={products._id} product={products} />
+    </div>
   );
-  if (isLoading) {
-    return "Loading ...";
-  }
-  if (error) {
-    return <p>{error}</p>;
-  }
-  return <div>{products.map(showProduct)}</div>;
 };
 
-ProductsSearchList.propTypes = {
-  q: PropTypes.string,
-};
-
-export default ProductsSearchList;
+export default ProductSearchList;

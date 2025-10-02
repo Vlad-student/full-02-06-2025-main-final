@@ -1,0 +1,39 @@
+.wrapper {
+  min-width: 560px;
+  max-width: 1300px;
+  width: 95%;
+  margin: auto;
+  padding-top: 40px;
+  position: relative;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: 20px;
+}
+
+.main {
+  min-height: 500px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+
+  h1 {
+    margin: 0;
+    color: #333;
+    font-size: 2rem;
+  }
+}

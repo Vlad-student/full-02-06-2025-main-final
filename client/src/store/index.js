@@ -1,9 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-import categoriesReducer from './categoriesSlice';
-import authReducer from './authSlice';
-import productsReducer from './productsSlice';
-import cartReducer from './cartSlice';
-import ordersReducer from './ordersSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import categoriesReducer from "./categoriesSlice";
+import authReducer from "./authSlice";
+import productsReducer from "./productsSlice";
+import cartReducer from "./cartSlice";
+import ordersReducer from "./ordersSlice";
+import searchReducer from "./searchSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     products: productsReducer,
     cart: cartReducer,
     orders: ordersReducer,
+    search: searchReducer,
   },
 });
 

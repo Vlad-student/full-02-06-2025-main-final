@@ -10,7 +10,7 @@ module.exports.getStats = async (req, res, next) => {
       Product.countDocuments(),
     ]);
 
-    res.json({
+    res.status(200).send({
       data: {
         users: usersCount,
         orders: ordersCount,

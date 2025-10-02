@@ -125,6 +125,59 @@ module.exports.getProductsOnSale = async (req, res, next) => {
   }
 };
 
+module.exports.getFilteredProducts = async (req, res, next) => {
+  try {
+    const { limit, skip } = req.pagination;
+    const filter = req.filter || {};
+    const [products] = await Promise.all([
+      Product.find(filter)
+        .populate({
+          path: "category",
+          select: "name",
+        })
+        .skip(skip)
+        .limit(limit),
+    ]);
+    res.status(200).send({ data: products });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.getCategoriesForFilter = async (req, res, next) => {
+  try {
+    const categories = await Product.aggregate([
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "categoryInfo",
+        },
+      },
+      {
+        $group: {
+          _id: "$category",
+          name: { $first: "$categoryInfo.name" },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          name: { $arrayElemAt: ["$name", 0] },
+          count: 1,
+        },
+      },
+    ]);
+    res.status(200).send({
+      data: categories.filter((cat) => cat.name),
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports.searchProducts = async (req, res, next) => {
   try {
     const q = req.query.q || "";
@@ -132,7 +185,7 @@ module.exports.searchProducts = async (req, res, next) => {
       title: { $regex: q, $options: "i" },
     });
 
-    res.json(products);
+    res.status(200).send({ data: products });
   } catch (error) {
     next(error);
   }

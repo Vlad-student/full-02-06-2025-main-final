@@ -20,6 +20,7 @@ import ProfilePage from "./pages/ProfilePage";
 import SalePage from "./pages/SalePage";
 import AdminStatsPage from "./components/Admin/AdminStatsPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
+import FilteredProductsPage from "./pages/FilteredProductsPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -99,6 +100,8 @@ const App = () => {
 
           <Route path="/products/sale" element={<SalePage />} />
           <Route path="/products/search" element={<SearchResultsPage />} />
+
+          <Route path="/products/filtered" element={<FilteredProductsPage />} />
 
           <Route path="*" element={<ErrorPage />} />
         </Routes>

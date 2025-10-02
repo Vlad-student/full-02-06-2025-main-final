@@ -6,7 +6,7 @@ import {
   deleteProduct,
   getOneProduct,
   getProductsOnSale,
-  getSearchProducts,
+  getCategoriesForFilter,
 } from "../api";
 import { pendingCase, rejectedCase } from "./functions";
 
@@ -82,11 +82,11 @@ export const deleteProductThunk = createAsyncThunk(
   }
 );
 
-export const searchProductThunk = createAsyncThunk(
-  "products/searchProductThunk",
-  async (args, thunkAPI) => {
+export const getFilteredProductsThunk = createAsyncThunk(
+  "products/getFilteredProductsThunk",
+  async (filters = {}, thunkAPI) => {
     try {
-      const response = await getSearchProducts(args);
+      const response = await getAllProducts(filters);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error?.message);
@@ -94,28 +94,83 @@ export const searchProductThunk = createAsyncThunk(
   }
 );
 
+export const getCategoriesForFilterThunk = createAsyncThunk(
+  "products/getCategoriesForFilterThunk",
+  async (_, thunkAPI) => {
+    try {
+      const response = await getCategoriesForFilter();
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error?.message);
+    }
+  }
+);
+
+const initialFiltersState = {
+  page: 1,
+  limit: 12,
+  minPrice: "",
+  maxPrice: "",
+  category: "",
+  availability: false,
+  sale: false,
+};
+
 const productsSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
     saleProducts: [],
     results: [],
-    status: "working",
-    // query: "",
-    // count: 0,
     error: null,
     isLoading: false,
     selectedProduct: null,
+
+    filteredProducts: [],
+    categoriesForFilter: [],
+    filters: initialFiltersState,
+    pagination: {
+      currentPage: 1,
+      totalPages: 1,
+      totalProducts: 0,
+      handleNext: false,
+      handlePrev: false,
+      limit: 12,
+    },
   },
 
-  reducers: {},
+  reducers: {
+    updateFilter: (state, action) => {
+      const { key, value } = action.payload;
+      state.filters[key] = value;
+      if (key !== "page") {
+        state.filters.page = 1;
+      }
+    },
+    resetFilters: (state) => {
+      state.filters = initialFiltersState;
+    },
+    setPage: (state, action) => {
+      state.filters.page = action.payload;
+    },
+    clearFilterError: (state) => {
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(searchProductThunk.pending, pendingCase);
-    builder.addCase(searchProductThunk.rejected, rejectedCase);
-    builder.addCase(searchProductThunk.fulfilled, (state, action) => {
+    builder.addCase(getFilteredProductsThunk.pending, pendingCase);
+    builder.addCase(getFilteredProductsThunk.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(getFilteredProductsThunk.fulfilled, (state, action) => {
       state.isLoading = false;
       state.error = null;
-      state.products = action.payload.products;
+      state.filteredProducts = action.payload.data;
+    });
+
+    builder.addCase(getCategoriesForFilterThunk.fulfilled, (state, action) => {
+      state.categoriesForFilter = action.payload;
     });
 
     builder.addCase(getAllProductsOnSaleThunk.pending, pendingCase);
@@ -175,4 +230,6 @@ const productsSlice = createSlice({
   },
 });
 
+export const { updateFilter, resetFilters, setPage, clearFilterError } =
+  productsSlice.actions;
 export default productsSlice.reducer;

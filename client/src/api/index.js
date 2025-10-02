@@ -46,6 +46,30 @@ export const updateCategory = (id, values) =>
 export const deleteCategory = (id) => apiClient.delete(`/categories/${id}`);
 
 // products
+export const getFilteredProducts = (filters = {}) => {
+  const queryParams = new URLSearchParams();
+  Object.entries(filters).forEach(([key, value]) => {
+    if (
+      value !== undefined &&
+      value !== "" &&
+      value !== null &&
+      value !== false
+    ) {
+      queryParams.append(key, value.toString());
+    }
+  });
+  return apiClient.get(`/products/filtered?${queryParams.toString()}`);
+};
+
+export const getCategoriesForFilter = () => {
+  return apiClient.get("/products/filter/categories");
+};
+
+export const getSearchProducts = (options) => {
+  const query = queryString.stringify(options);
+  return apiClient.get(`products/search?${query}`);
+};
+
 export const getAllProducts = (options) => {
   const query = queryString.stringify(options);
   return apiClient.get(`/products?${query}`);
@@ -65,10 +89,17 @@ export const updateProduct = (id, values) =>
   apiClient.patch(`/products/${id}`, values);
 export const deleteProduct = (id) => apiClient.delete(`/products/${id}`);
 
-export const getSearchProducts = (options) => {
-  const query = queryString.stringify(options);
-  return apiClient.get(`products/search?${query}`);
-};
+// const API_URL = "/api/products";
+// export const getSearchProducts = async (query) => {
+//   const response = await axios.get(
+//     `${API_URL}/search?q=${encodeURIComponent(query)}`
+//   );
+//   return response;
+// };
+
+// export const getSearchProducts = (query) => {
+//   return apiClient.get(`/products/search?q=${query}`);
+// };
 
 // export const searchProduct = (query) => {
 //   return apiClient.get(`/products/search?q=${encodeURIComponent(query)}`);
