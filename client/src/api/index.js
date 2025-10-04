@@ -67,7 +67,7 @@ export const getCategoriesForFilter = () => {
 
 export const getSearchProducts = (options) => {
   const query = queryString.stringify(options);
-  return apiClient.get(`products/search?${query}`);
+  return apiClient.get(`/products/search?${query}`);
 };
 
 export const getAllProducts = (options) => {

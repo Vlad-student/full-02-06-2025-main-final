@@ -39,11 +39,12 @@ const searchSlice = createSlice({
       .addCase(searchProductThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.products = action.payload;
+          state.products = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(searchProductThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+          state.products = [];
       });
   },
 });
