@@ -26,14 +26,15 @@ module.exports.createProduct = async (req, res, next) => {
 module.exports.getAllProducts = async (req, res, next) => {
   try {
     const { limit, skip } = req.pagination;
-    const products = await Product.find(req.filter)
-      .populate({
-        path: "category",
-        select: "name",
-      })
-      .skip(skip)
-      .limit(limit);
-    res.status(200).send({ data: products });
+
+    const [products, totalProducts] = await Promise.all([
+      Product.find(req.filter)
+        .populate({ path: "category", select: "name" })
+        .skip(skip)
+        .limit(limit)
+        .lean(),
+    ]);
+    res.status(200).send({ data: products, totalProducts });
   } catch (error) {
     next(error);
   }

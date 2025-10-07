@@ -1,9 +1,7 @@
 import { useSelector } from "react-redux";
 import styles from "./ProductFilters.module.scss";
-import {  useNavigate } from "react-router-dom";
 
-const ProductsFilterList = ({ filters, setFilters }) => {
-    const navigate = useNavigate();
+const ProductsFilters = ({ filters, setFilters }) => {
   const { categories } = useSelector((state) => state.categories);
 
   const handlePriceChange = (field) => (e) =>
@@ -24,36 +22,26 @@ const ProductsFilterList = ({ filters, setFilters }) => {
     }));
 
   const otherFilters = [
-    { field: "availability", label: "availably" },
-    { field: "sale", label: "non available" },
+    { field: "availability", label: "Є у наявності" },
+    { field: "sale", label: "Товари зі знижкою" },
   ];
-
-  const handleApplyFilters = () => {
-    navigate("/products/filtered");
-  };
 
   return (
     <aside>
       <form className={styles["filtersSidebar"]}>
-        <div>
-             <button
-          className={styles.applyBtn}
-          onClick={handleApplyFilters}
-        >
-          Apply
-        </button>
-        <button className={styles.resetBtn}>
-          Reset
-        </button>
-          <h3>Price</h3>
-          <label>
+        <div className={styles["filterGroup"]}>
+          <div className={styles["header"]}>
+            <h3>Filters</h3>
+          </div>
+          <h3>Ціна</h3>
+          <label className={styles["label"]}>
             <input
               type="number"
               value={filters.minPrice}
               onChange={handlePriceChange("minPrice")}
             />
           </label>
-          <label>
+          <label className={styles["label"]}>
             <input
               type="number"
               value={filters.maxPrice}
@@ -62,10 +50,10 @@ const ProductsFilterList = ({ filters, setFilters }) => {
           </label>
         </div>
 
-        <div>
-          <h3>Category</h3>
+        <div className={styles["filterGroup"]}>
+          <h3>Категорія</h3>
           {categories.map((category) => (
-            <label key={category._id} className={styles["filters-label"]}>
+            <label key={category._id} className={styles["label"]}>
               <input
                 type="checkbox"
                 value={category._id}
@@ -77,10 +65,10 @@ const ProductsFilterList = ({ filters, setFilters }) => {
           ))}
         </div>
 
-        <div>
-          <h3>In stock and Sale</h3>
+        <div className={styles["filterGroup"]}>
+          <h3>Інше</h3>
           {otherFilters.map(({ field, label }) => (
-            <label key={field}>
+            <label key={field} className={styles["label"]}>
               <input
                 type="checkbox"
                 checked={filters[field] === true}
@@ -95,4 +83,4 @@ const ProductsFilterList = ({ filters, setFilters }) => {
   );
 };
 
-export default ProductsFilterList;
+export default ProductsFilters;

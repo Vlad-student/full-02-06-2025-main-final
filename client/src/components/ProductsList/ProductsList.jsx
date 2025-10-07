@@ -8,7 +8,9 @@ const ProductsList = (props) => {
     <ProductItem key={product._id} product={product} />
   );
   return (
-    <section className={styles.products}>{products.map(showProduct)}</section>
+    <section className={styles.products}>
+      {products?.map(showProduct)}
+    </section>
   );
 };
 

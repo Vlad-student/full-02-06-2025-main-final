@@ -10,30 +10,30 @@
   top: 20px;
 }
 
-.resetBtn {
-  background: #ff6b6b;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.8rem;
+.filterGroup {
+  margin-bottom: 25px;
+}
 
-  &:hover {
-    background: #ff5252;
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+
+  h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.2rem;
   }
 }
 
-.applyBtn {
-  background: #86e969;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.8rem;
-
-  &:hover {
-    background: #86e969;
-  }
-}

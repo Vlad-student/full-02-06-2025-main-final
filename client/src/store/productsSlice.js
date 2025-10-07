@@ -6,7 +6,7 @@ import {
   deleteProduct,
   getOneProduct,
   getProductsOnSale,
-  searchProducts
+  searchProducts,
 } from "../api";
 import { pendingCase, rejectedCase } from "./functions";
 
@@ -36,9 +36,9 @@ export const getAllProductsOnSaleThunk = createAsyncThunk(
 
 export const getAllProductsThunk = createAsyncThunk(
   "products/getAllProductsThunk",
-  async (values, thunkAPI) => {
+  async ({filters , pagination}, thunkAPI) => {
     try {
-      const response = await getAllProducts();
+      const response = await getAllProducts(filters, pagination);
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error?.message);
@@ -108,13 +108,13 @@ const productsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(searchProductsThunk.pending, pendingCase);
+    builder.addCase(searchProductsThunk.rejected, rejectedCase);
     builder.addCase(searchProductsThunk.fulfilled, (state, action) => {
       state.isLoading = false;
       state.error = null;
       state.products = action.payload.data;
       state.totalProducts = action.payload.totalProducts;
     });
-    builder.addCase(searchProductsThunk.rejected, rejectedCase);
 
     builder.addCase(getAllProductsOnSaleThunk.pending, pendingCase);
     builder.addCase(getAllProductsOnSaleThunk.rejected, rejectedCase);
@@ -169,6 +169,7 @@ const productsSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.products = action.payload;
+      state.totalProducts = action.payload.totalProducts;
     });
   },
 });
