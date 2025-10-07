@@ -27,60 +27,72 @@ const ProductFilterList = ({ filters, setFilters }) => {
   ];
 
   return (
-    <aside>
-      <form className={styles["filtersSidebar"]}>
+    <div className={styles["filtersTopPanel"]}>
+      <div className={styles["filtersHeader"]}>
+        <h3>Фільтри</h3>
+      </div>
+
+      <form className={styles["filtersForm"]}>
+        
         <div className={styles["filterGroup"]}>
-          <div className={styles["header"]}>
-            <h3>Filters</h3>
-          </div>
-          <h3>Ціна</h3>
-          <label className={styles["label"]}>
+          <h4>Ціна</h4>
+          <div className={styles["priceInputs"]}>
             <input
               type="number"
+              placeholder="Мін"
               value={filters.minPrice}
               onChange={handlePriceChange("minPrice")}
             />
-          </label>
-          <label className={styles["label"]}>
+            <span>-</span>
             <input
               type="number"
+              placeholder="Макс"
               value={filters.maxPrice}
               onChange={handlePriceChange("maxPrice")}
             />
-          </label>
+          </div>
         </div>
 
+        
         <div className={styles["filterGroup"]}>
-          <h3>Категорія</h3>
-          {categories.map((category) => (
-            <label key={category._id} className={styles["label"]}>
-              <input
-                type="checkbox"
-                value={category._id}
-                checked={filters.category.includes(category._id)}
-                onChange={handleCategoryChange(category._id)}
-              />
-              <span>{category.name}</span>
-            </label>
-          ))}
+          <details className={styles["dropdown"]}>
+            <summary>Категорія</summary>
+            <div className={styles["dropdownContent"]}>
+              {categories.map((category) => (
+                <label key={category._id} className={styles["label"]}>
+                  <input
+                    type="checkbox"
+                    value={category._id}
+                    checked={filters.category.includes(category._id)}
+                    onChange={handleCategoryChange(category._id)}
+                  />
+                  <span>{category.name}</span>
+                </label>
+              ))}
+            </div>
+          </details>
         </div>
-
+    
         <div className={styles["filterGroup"]}>
-          <h3>Інше</h3>
-          {otherFilters.map(({ field, label }) => (
-            <label key={field} className={styles["label"]}>
-              <input
-                type="checkbox"
-                checked={filters[field] === true}
-                onChange={handleCheckboxChange(field)}
-              />
-              <span>{label}</span>
-            </label>
-          ))}
+          <details className={styles["dropdown"]}>
+            <summary>Інше</summary>
+            <div className={styles["dropdownContent"]}>
+              {otherFilters.map(({ field, label }) => (
+                <label key={field} className={styles["label"]}>
+                  <input
+                    type="checkbox"
+                    checked={filters[field] === true}
+                    onChange={handleCheckboxChange(field)}
+                  />
+                  <span>{label}</span>
+                </label>
+              ))}
+            </div>
+          </details>
         </div>
       </form>
-    </aside>
+    </div>
   );
 };
 
-export default  ProductFilterList;
+export default ProductFilterList;
