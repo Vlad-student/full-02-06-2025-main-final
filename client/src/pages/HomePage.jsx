@@ -27,14 +27,22 @@ const HomePage = () => {
 
   return (
     <div className={styles.wrapper}>
-      <ProductsList products={products} />
-      <Pagination
-        page={page}
-        setPage={setPage}
-        amount={amount}
-        setAmount={setAmount}
-        totalItems={totalProducts}
-      />
+      <aside>
+        <div>
+          <ProductFilterList filters={filters} setFilters={setFilters} />
+        </div>
+      </aside>
+
+      <main>
+        <ProductsList products={products} />
+        <Pagination
+          page={page}
+          setPage={setPage}
+          amount={amount}
+          setAmount={setAmount}
+          totalItems={totalProducts}
+        />
+      </main>
     </div>
   );
 };

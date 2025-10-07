@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import styles from "./ProductFilters.module.scss";
 
-const ProductsFilters = ({ filters, setFilters }) => {
+const ProductFilterList = ({ filters, setFilters }) => {
   const { categories } = useSelector((state) => state.categories);
 
   const handlePriceChange = (field) => (e) =>
@@ -83,4 +83,4 @@ const ProductsFilters = ({ filters, setFilters }) => {
   );
 };
 
-export default ProductsFilters;
+export default  ProductFilterList;
