@@ -1,0 +1,48 @@
+@use "/src/common/styles/colors" as *;
+
+.search-label {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.search-input {
+  height: 27px;
+  border: none;
+  border-radius: 0;
+  padding: 0 8px;
+  font-size: 16px;
+
+  &:focus {
+    outline: none;
+    background-color: #f9f9f9;
+  }
+}
+
+.search-button {
+  height: 27px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 0;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+
+  &:hover {
+    background-color: #f0f0f0;
+
+    .search-icon {
+      color: $primary;
+    }
+  }
+}
+
+.search-icon {
+  transition: color 0.2s;
+}

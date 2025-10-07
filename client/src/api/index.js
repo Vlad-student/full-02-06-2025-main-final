@@ -46,29 +46,10 @@ export const updateCategory = (id, values) =>
 export const deleteCategory = (id) => apiClient.delete(`/categories/${id}`);
 
 // products
-export const getFilteredProducts = (filters = {}) => {
-  const queryParams = new URLSearchParams();
-  Object.entries(filters).forEach(([key, value]) => {
-    if (
-      value !== undefined &&
-      value !== "" &&
-      value !== null &&
-      value !== false
-    ) {
-      queryParams.append(key, value.toString());
-    }
-  });
-  return apiClient.get(`/products/filtered?${queryParams.toString()}`);
-};
-
-export const getCategoriesForFilter = () => {
-  return apiClient.get("/products/filter/categories");
-};
-
-export const getSearchProducts = (options) => {
-  const query = queryString.stringify(options);
-  return apiClient.get(`/products/search?${query}`);
-};
+export const searchProducts = (title, pagination) =>
+  apiClient.get(
+    `/products/search?${queryString.stringify({ title, ...pagination })}`
+  );
 
 export const getAllProducts = (options) => {
   const query = queryString.stringify(options);

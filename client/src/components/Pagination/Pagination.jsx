@@ -1,41 +1,49 @@
-import React from "react";
-import CONSTANTS from "../../constants";
+import styles from "./Pagination.module.scss";
 
-const Pagination = (props) => {
-  const { page, setPage, total, amount, setAmount } = props;
-
-  const handlePrev = () => {
-    if (page > 1) {
-      setPage((prevPage) => prevPage - 1);
-    }
+const Pagination = ({ page, setPage, amount, setAmount, totalItems }) => {
+  const handlePrevClick = () => {
+    setPage((prevPage) => Math.max(prevPage - 1, 1));
   };
-  const handleNext = () => {
-    if (page < total / amount) {
-      setPage((prevPage) => prevPage + 1);
-    }
+  const handleNextClick = () => {
+    if (page * amount >= totalItems) return;
+    setPage((prevPage) => prevPage + 1);
   };
-  const showOption = (option) => (
-    <option key={option} value={option}>
-      {option}
-    </option>
-  );
-
-  const handleChange = (event) => {
-    setAmount(event.target.value);
-    setPage(1);
-  };
-
   return (
-    <div>
-      <span onClick={handlePrev}>prev</span>
-      <span>{page}</span>
-      <span onClick={handleNext}>next</span>
-
-      <select value={amount} onChange={handleChange}>
-        {CONSTANTS.ORDER_AMOUNT.map(showOption)}
-      </select>
+    <div className={styles["pagination-container"]}>
+      <div className={styles["page-container"]}>
+        <span
+          onClick={handlePrevClick}
+          className={page === 1 ? styles.disabled : styles.switches}
+        >
+          prev
+        </span>
+        <span className={styles["page-count"]}>{page}</span>
+        <span
+          onClick={handleNextClick}
+          className={
+            page * amount >= totalItems ? styles.disabled : styles.switches
+          }
+        >
+          next
+        </span>
+      </div>
+      <div className={styles["amount-container"]}>
+        <span>Amount per page</span>
+        <select
+          value={amount}
+          onChange={(e) => {
+            setAmount(Number(e.target.value));
+            setPage(1);
+          }}
+          className={styles["amount-select"]}
+        >
+          <option value={2}>2</option>
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+        </select>
+      </div>
     </div>
   );
 };
-
 export default Pagination;

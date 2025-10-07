@@ -15,6 +15,7 @@ const Header = () => {
   const { user } = useSelector((state) => state.auth);
   const { categories } = useSelector((state) => state.categories);
   const { items } = useSelector((state) => state.cart);
+
   const total = items?.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -26,14 +27,10 @@ const Header = () => {
   }, [dispatch, categories?.length]);
   const showCategory = (category) => (
     <li key={category._id}>
-      <NavLink
-        to={`/categories/${category._id}`}
-        className={({ isActive }) => (isActive ? styles.active : "")}
-      >
-        {category.name}
-      </NavLink>
+      <NavLink to={`/categories/${category._id}`}>{category.name}</NavLink>
     </li>
   );
+
   const logout = () => {
     dispatch(resetOrders());
     dispatch(logoutUserThunk());

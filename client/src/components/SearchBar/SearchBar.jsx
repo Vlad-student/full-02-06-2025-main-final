@@ -1,33 +1,39 @@
-import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import { mdiMagnify } from '@mdi/js';
-import Icon from '@mdi/react';
+import { mdiMagnify } from "@mdi/js";
+import Icon from "@mdi/react";
+import { useNavigate } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
+import styles from "./SearchBar.module.scss";
 
-const SearchBar = () => {
+const Search = () => {
   const navigate = useNavigate();
-  const formik = useFormik({
-    initialValues: {
-      q: '',
-    },
-    onSubmit: (values) => {
-      const trimQ = values.q.trim();
-      navigate(`/products/search?q=${trimQ}`);
-    },
-  });
+
+  const handleSubmit = (values) => {
+    navigate(`/search?text=${values.query}`);
+  };
+
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <input
-        type="search"
-        name="q"
-        placeholder="search products..."
-        value={formik.values.q}
-        onChange={formik.handleChange}
-      />
-      <button type="submit">
-        <Icon size={0.3} path={mdiMagnify} />
-      </button>
-    </form>
+    <Formik initialValues={{ query: "" }} onSubmit={handleSubmit}>
+      {() => (
+        <Form className={styles["search-form"]}>
+          <label className={styles["search-label"]}>
+            <Field
+              name="query"
+              type="text"
+              placeholder="Search products"
+              className={styles["search-input"]}
+            />
+            <button type="submit" className={styles["search-button"]}>
+              <Icon
+                path={mdiMagnify}
+                size={1}
+                className={styles["search-icon"]}
+              />
+            </button>
+          </label>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
-export default SearchBar;
+export default Search;

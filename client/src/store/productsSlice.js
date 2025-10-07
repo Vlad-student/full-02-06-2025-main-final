@@ -6,7 +6,7 @@ import {
   deleteProduct,
   getOneProduct,
   getProductsOnSale,
-  getCategoriesForFilter,
+  searchProducts
 } from "../api";
 import { pendingCase, rejectedCase } from "./functions";
 
@@ -82,11 +82,11 @@ export const deleteProductThunk = createAsyncThunk(
   }
 );
 
-export const getFilteredProductsThunk = createAsyncThunk(
-  "products/getFilteredProductsThunk",
-  async (filters = {}, thunkAPI) => {
+export const searchProductsThunk = createAsyncThunk(
+  "products/searchProductsThunk",
+  async ({ title, pagination }, thunkAPI) => {
     try {
-      const response = await getAllProducts(filters);
+      const response = await searchProducts(title, pagination);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error?.message);
@@ -94,84 +94,27 @@ export const getFilteredProductsThunk = createAsyncThunk(
   }
 );
 
-export const getCategoriesForFilterThunk = createAsyncThunk(
-  "products/getCategoriesForFilterThunk",
-  async (_, thunkAPI) => {
-    try {
-      const response = await getCategoriesForFilter();
-      return response.data.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error?.message);
-    }
-  }
-);
-
-const initialFiltersState = {
-  page: 1,
-  limit: 12,
-  minPrice: "",
-  maxPrice: "",
-  category: "",
-  availability: false,
-  sale: false,
-};
-
 const productsSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
+    totalProducts: 0,
+    selectedProduct: null,
     saleProducts: [],
-    results: [],
     error: null,
     isLoading: false,
-    selectedProduct: null,
-
-    filteredProducts: [],
-    categoriesForFilter: [],
-    filters: initialFiltersState,
-    pagination: {
-      currentPage: 1,
-      totalPages: 1,
-      totalProducts: 0,
-      handleNext: false,
-      handlePrev: false,
-      limit: 12,
-    },
   },
 
-  reducers: {
-    updateFilter: (state, action) => {
-      const { key, value } = action.payload;
-      state.filters[key] = value;
-      if (key !== "page") {
-        state.filters.page = 1;
-      }
-    },
-    resetFilters: (state) => {
-      state.filters = initialFiltersState;
-    },
-    setPage: (state, action) => {
-      state.filters.page = action.payload;
-    },
-    clearFilterError: (state) => {
-      state.error = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getFilteredProductsThunk.pending, pendingCase);
-    builder.addCase(getFilteredProductsThunk.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    });
-    builder.addCase(getFilteredProductsThunk.fulfilled, (state, action) => {
+    builder.addCase(searchProductsThunk.pending, pendingCase);
+    builder.addCase(searchProductsThunk.fulfilled, (state, action) => {
       state.isLoading = false;
       state.error = null;
-      state.filteredProducts = action.payload.data;
+      state.products = action.payload.data;
+      state.totalProducts = action.payload.totalProducts;
     });
-
-    builder.addCase(getCategoriesForFilterThunk.fulfilled, (state, action) => {
-      state.categoriesForFilter = action.payload;
-    });
+    builder.addCase(searchProductsThunk.rejected, rejectedCase);
 
     builder.addCase(getAllProductsOnSaleThunk.pending, pendingCase);
     builder.addCase(getAllProductsOnSaleThunk.rejected, rejectedCase);
@@ -230,6 +173,4 @@ const productsSlice = createSlice({
   },
 });
 
-export const { updateFilter, resetFilters, setPage, clearFilterError } =
-  productsSlice.actions;
 export default productsSlice.reducer;

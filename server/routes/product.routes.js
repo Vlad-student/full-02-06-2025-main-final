@@ -14,8 +14,6 @@ const {
   deleteProduct,
   getProductsOnSale,
   searchProducts,
-  getFilteredProducts,
-  getCategoriesForFilter,
 } = require("../controllers/product.controller");
 const CONSTANTS = require("../constants");
 const { paginate } = require("../middlewares/pagination.mw");
@@ -23,12 +21,12 @@ const { filterProducts } = require("../middlewares/filter.mw");
 
 const router = express.Router();
 
-router.get("/filtered", paginate, filterProducts, getFilteredProducts);
-router.get("/filter/categories", getCategoriesForFilter);
+router.get("/", paginate, filterProducts, getAllProducts);
+router.get("/sale", paginate ,getProductsOnSale);
+router.get("/search", paginate ,searchProducts);
 
-router.get("/sale", getProductsOnSale);
+router.get("/:idProduct", getProductById);
 
-router.get("/search", searchProducts);
 
 router.post(
   "/",
@@ -39,8 +37,8 @@ router.post(
   createProduct
 );
 
-router.get("/", paginate, filterProducts, getAllProducts);
-router.get("/:idProduct", getProductById);
+
+
 
 router.patch(
   "/:idProduct",

@@ -1,1 +1,1 @@
-GET http://localhost:3000/products/search?q=lenovo HTTP/1.1
+GET http://localhost:3000/products/search?title=lenovo HTTP/1.1
