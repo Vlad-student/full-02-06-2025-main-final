@@ -13,26 +13,26 @@ const AdminOrderRow = (props) => {
     totalSumma,
     status,
   } = order;
-  const showProduct = (product) => (
-    <tr key={product?.productId._id}>
-      <td>{product?.productId?.title}</td>
+  const showProduct = (product, index) => (
+    <tr key={product?.productId?._id || index}>
+      <td>{product?.productId?.title || 'Product was deleted'}</td>
       <td>{product?.productPrice}</td>
-      <td>{product.quantity}</td>
+      <td>{product?.quantity}</td>
     </tr>
   );
   return (
     <tr>
-      <td>{user?.email}</td>
+      <td>{user?.email || 'User was deleted'}</td>
       <td>{shippingPhone}</td>
       <td>{shippingMethod}</td>
       <td>{shippingAddress}</td>
       <td>{shippingPrice.toFixed(2)}</td>
       <td>
         <table>
-          <tbody>{products?.map(showProduct)}</tbody>
+          <tbody>{products?.map((product, index) => showProduct(product, index))}</tbody>
         </table>
       </td>
-      <td>{totalSumma.toFixed(2)}</td>
+      <td>{totalSumma?.toFixed(2)}</td>
       <td>{status}</td>
       <td>
         <AdminOrderForm order={order} />
